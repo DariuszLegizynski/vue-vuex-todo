@@ -1,3 +1,5 @@
+import axios from "axios";
+
 const state = {
 	todos: [],
 };
@@ -15,24 +17,18 @@ const actions = {
 		commit("setTodos", fetchedData); //passes fetchedData into todos in mutations => setTodos: {..., todos} below
 	},
 	async addTodo({ commit }, title) {
-		const response = await fetch(
+		const response = await axios.post(
 			"https://jsonplaceholder.typicode.com/todos",
-			{
-				method: "POST",
-				body: JSON.stringify({
-					title,
-					completed: false,
-				}),
-			}
-		).catch((err) => alert(err.message));
-		const postedData = await response.json();
-		commit("newTodo", postedData);
+			{ title, completed: false }
+		);
+
+		commit("newTodo", response.data);
 	},
 };
 
 const mutations = {
 	setTodos: (state, todos) => (state.todos = todos),
-	newTodo: (state, todo) => [todo, ...state.todos],
+	newTodo: (state, todo) => state.todos.unshift(todo),
 };
 
 export default {
