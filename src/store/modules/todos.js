@@ -24,11 +24,35 @@ const actions = {
 
 		commit("newTodo", response.data);
 	},
+	async deleteTodo({ commit }, id) {
+		await axios.delete(
+			`https://jsonplaceholder.typicode.com/todos/${id}`
+		);
+		commit("removeTodo", id);
+	},
+	async filterTodos({ commit }, e) {
+		// get selected number
+		const limit = parseInt(
+			e.target.options[e.target.options.selectedIndex]
+				.innerText
+		);
+		const response = await fetch(
+			`https://jsonplaceholder.typicode.com/todos?_limit=${limit}`
+		).catch((err) => alert(err.message));
+		const fetchedData = await response
+			.json()
+			.catch((err) => alert(err.message));
+		commit("setTodos", fetchedData);
+	},
 };
 
 const mutations = {
 	setTodos: (state, todos) => (state.todos = todos),
 	newTodo: (state, todo) => state.todos.unshift(todo),
+	removeTodo: (state, id) =>
+		(state.todos = state.todos.filter(
+			(todo) => todo.id !== id
+		)),
 };
 
 export default {

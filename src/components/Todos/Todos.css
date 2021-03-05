@@ -15,4 +15,13 @@
   position: relative;
   cursor: pointer;
 }
+
+.todo > p {
+  text-transform: uppercase;
+  position: absolute;
+  bottom: 5px;
+  right: 10px;
+  color: #fff;
+  cursor: pointer;
+}
 /*# sourceMappingURL=Todos.css.map */

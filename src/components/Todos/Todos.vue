@@ -8,6 +8,7 @@
 				class="todo"
 			>
 				{{ todo.title }}
+				<p @click="deleteTodo(todo.id)">del</p>
 			</div>
 		</div>
 	</div>
@@ -18,7 +19,7 @@ import { mapGetters, mapActions } from "vuex";
 export default {
 	name: "Todos",
 	methods: {
-		...mapActions(["fetchTodos"]),
+		...mapActions(["fetchTodos", "deleteTodo"]),
 	},
 	computed: { ...mapGetters(["allTodos"]) },
 	created() {

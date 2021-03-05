@@ -12,4 +12,13 @@
 	text-align: center;
 	position: relative;
 	cursor: pointer;
+
+	& > p {
+		text-transform: uppercase;
+		position: absolute;
+		bottom: 5px;
+		right: 10px;
+		color: #fff;
+		cursor: pointer;
+	}
 }
