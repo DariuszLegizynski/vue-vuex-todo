@@ -44,6 +44,15 @@ const actions = {
 			.catch((err) => alert(err.message));
 		commit("setTodos", fetchedData);
 	},
+	async updateTodo({ commit }, updTodo) {
+		const response = await axios
+			.put(
+				`https://jsonplaceholder.typicode.com/todos/${updTodo.id}`,
+				updTodo
+			)
+			.catch((err) => alert(err.message));
+		commit("updateTodo", response);
+	},
 };
 
 const mutations = {
@@ -53,6 +62,14 @@ const mutations = {
 		(state.todos = state.todos.filter(
 			(todo) => todo.id !== id
 		)),
+	updateTodo: (state, updTodo) => {
+		const index = state.todos.findIndex(
+			(todo) => todo.id === updTodo.id
+		);
+		if (!index) {
+			state.todos.splice(index, 1, updTodo);
+		}
+	},
 };
 
 export default {
